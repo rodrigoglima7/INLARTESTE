@@ -1,0 +1,103 @@
+<div class="grid">
+  <div class="col-12">
+    <p-card styleClass="shadow-3 m-5 text-indigo-800" header="Doadores">
+      <p-table
+        [value]="doador"
+        [(selection)]="doadorSelected"
+        [rows]="10"
+        [paginator]="true"
+        [responsive]="true"
+        [tableStyle]="{ 'min-width': '75rem' }"
+        [rowHover]="true"
+        [showCurrentPageReport]="true"
+        dataKey="idDoador"
+        currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} doadores"
+      >
+        <ng-template pTemplate="header">
+          <tr>
+            <th pSortableColumn="nome">
+              <div class="flex justify-content-between align-items-center">
+                <div>Nome</div>
+                <div>
+                  <p-sortIcon field="nome"></p-sortIcon>
+                  <p-columnFilter
+                    type="text"
+                    field="nome"
+                    display="menu"
+                    matchMode="contains"
+                    [showMatchModes]="false"
+                    [showOperator]="false"
+                    [showAddButton]="false"
+                  ></p-columnFilter>
+                </div>
+              </div>
+            </th>
+
+            <!-- Coluna para Estado (UF) -->
+            <th pSortableColumn="uf">
+              <div class="flex justify-content-between align-items-center">
+                <div>Estado (UF)</div>
+                <div>
+                  <p-sortIcon field="uf"></p-sortIcon>
+                  <p-columnFilter
+                    type="text"
+                    field="uf"
+                    display="menu"
+                    matchMode="contains"
+                    [showMatchModes]="false"
+                    [showOperator]="false"
+                    [showAddButton]="false"
+                  ></p-columnFilter>
+                </div>
+              </div>
+            </th>
+
+            <th>
+              <div class="flex justify-content-center">
+                <button
+                  pButton
+                  pRipple
+                  icon="pi pi-plus"
+                  label="Adicionar"
+                  pTooltip="Adicionar Doador"
+                  tooltipPosition="top"
+                  (click)="handleDoadorEvent('ADICIONAR DOADOR')"
+                ></button>
+              </div>
+            </th>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-doador>
+          <tr>
+            <td>{{ doador.nome }}</td>
+            <td>{{ doador.uf }}</td>
+            <td>
+              <div class="flex justify-content-center gap-3 align-content-center align-items-center">
+                <button
+                  pButton
+                  pRipple
+                  icon="pi pi-pencil"
+                  pTooltip="Editar doador"
+                  tooltipPosition="top"
+                  class="p-button-rounded p-button-warning"
+                  (click)="handleDoadorEvent('EDITAR DOADOR', doador.idDoador, doador.nome)"
+                ></button>
+                <button
+                  pButton
+                  pRipple
+                  icon="pi pi-trash"
+                  pTooltip="Remover doador"
+                  tooltipPosition="top"
+                  class="p-button-rounded p-button-danger"
+                  (click)="handleDeleteDoadorEvent(doador.idDoador, doador.nome)"
+                ></button>
+              </div>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </p-card>
+  </div>
+  <p-confirmDialog [style]="{ width: '50vw' }"></p-confirmDialog>
+</div>

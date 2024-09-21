@@ -1,0 +1,202 @@
+<div>
+  <form [formGroup]="beneficiarioForm" (ngSubmit)="handleSubmit()">
+    <div class="card flex flex-column gap-3 custom-form">
+
+      <!-- Campo oculto para ID do Beneficiário -->
+      <input type="hidden" formControlName="idBeneficiario" />
+
+      <!-- Nome -->
+      <div class="form-group">
+        <label for="nome">Nome</label>
+        <input id="nome" pInputText placeholder="Nome" formControlName="nome" />
+      </div>
+
+      <!-- Dropdown para escolher entre Pessoa Física ou Jurídica -->
+      <div class="form-group">
+        <label for="tipoPessoa">Tipo de Pessoa</label>
+        <p-dropdown 
+          id="tipoPessoa"
+          [options]="tipoPessoaOptions" 
+          formControlName="tipo_pessoa" 
+          placeholder="Selecione o tipo de pessoa">
+        </p-dropdown>
+      </div>
+
+      <!-- Estado (UF) -->
+      <div class="form-group">
+        <label for="uf">Estado (UF)</label>
+        <p-dropdown 
+          id="uf"
+          [options]="estados" 
+          formControlName="uf" 
+          placeholder="Selecione um Estado">
+        </p-dropdown>
+      </div>
+
+      <!-- Campos para Pessoa Física -->
+      <div *ngIf="beneficiarioForm.get('tipo_pessoa')?.value === 'F'">
+        <div class="form-group">
+          <label for="cpf">CPF</label>
+          <p-inputMask 
+            id="cpf"
+            formControlName="cpf"
+            mask="999.999.999-99" 
+            placeholder="Digite o CPF"
+            slotChar="_"  
+          ></p-inputMask>
+        </div>
+      </div>
+
+      <!-- Campos para Pessoa Jurídica -->
+      <div *ngIf="beneficiarioForm.get('tipo_pessoa')?.value === 'J'">
+        <div class="form-group">
+          <label for="cnpj">CNPJ</label>
+          <p-inputMask
+            id="cnpj"
+            formControlName="cnpj"
+            mask="99.999.999/9999-99"  
+            placeholder="Digite o CNPJ"
+            slotChar="_"
+          ></p-inputMask>
+        </div>
+      </div>
+
+      <!-- Campos que aparecem para ambos os tipos de Pessoa -->
+      <div class="form-group">
+        <label for="rg">RG</label>
+        <input 
+          id="rg"
+          pInputText 
+          placeholder="RG" 
+          formControlName="rg" 
+          maxlength="9" 
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="datanasc">Data de Nascimento</label>
+        <input 
+          id="datanasc"
+          pInputText 
+          placeholder="Data de Nascimento" 
+          formControlName="datanasc" 
+          type="date" 
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="genero">Gênero</label>
+        <p-dropdown 
+          id="genero"
+          [options]="generos" 
+          formControlName="genero" 
+          placeholder="Selecione o Gênero">
+        </p-dropdown>
+      </div>
+
+      <!-- Contato -->
+      <div class="form-group">
+        <label for="contato1">Contato 1</label>
+        <p-inputMask
+          id="contato1"
+          formControlName="contato1"
+          mask="(99) 99999-9999" 
+          placeholder="Digite o Telefone"
+          slotChar="_"  
+        ></p-inputMask>
+      </div>
+      
+      <div class="form-group">
+        <label for="contato2">Contato 2</label>
+        <p-inputMask
+          id="contato2"
+          formControlName="contato2"
+          mask="(99) 99999-9999"  
+          placeholder="Digite o Telefone"
+          slotChar="_"
+        ></p-inputMask>
+      </div>
+
+      <!-- Endereço -->
+      <div class="form-group">
+        <label for="cep">CEP</label>
+        <input 
+          id="cep"
+          pInputText 
+          placeholder="CEP" 
+          formControlName="cep" 
+          maxlength="8" 
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="logradouro">Logradouro</label>
+        <input 
+          id="logradouro"
+          pInputText 
+          placeholder="Logradouro" 
+          formControlName="logradouro" 
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="numero">Número</label>
+        <input 
+          id="numero"
+          pInputText 
+          placeholder="Número" 
+          formControlName="numero" 
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="complemento">Complemento</label>
+        <input 
+          id="complemento"
+          pInputText 
+          placeholder="Complemento" 
+          formControlName="complemento" 
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="bairro">Bairro</label>
+        <input 
+          id="bairro"
+          pInputText 
+          placeholder="Bairro" 
+          formControlName="bairro" 
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="cidade">Cidade</label>
+        <input 
+          id="cidade"
+          pInputText 
+          placeholder="Cidade" 
+          formControlName="cidade" 
+        />
+      </div>
+
+      <!-- Observações -->
+      <div class="form-group">
+        <label for="observacoes">Observações</label>
+        <textarea 
+          id="observacoes"
+          pInputTextarea 
+          placeholder="Observações" 
+          formControlName="observacoes">
+        </textarea>
+      </div>
+
+      <!-- Botão de Submissão -->
+      <div class="form-group flex justify-content-center">
+        <p-button 
+          type="submit" 
+          label="Concluir">
+        </p-button>
+      </div>
+    </div>
+  </form>
+</div>
